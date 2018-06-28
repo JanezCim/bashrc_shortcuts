@@ -13,9 +13,6 @@ alias s="source devel/setup.bash"
 #go to current workspace and source it
 alias cw="cd $wpath; s"
 
-#list all the aliases
-alias h="tail ~/.bashrc | grep "alias""
-
 #self explanatory
 alias c="catkin_make"
 alias cb="catkin build"
