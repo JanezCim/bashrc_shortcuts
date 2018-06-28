@@ -1,0 +1,43 @@
+#welcome home ssh
+function whs() {
+  scp ~/.bashrc $1:/tmp/.bashrc_temp
+  ssh -t $1 "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
+}
+
+#define a ROS workspace path that you are working on in order for other commands to work
+export wpath=~/Documents/Git/full_nav_sim
+
+#source ROS workspace
+alias s="source devel/setup.bash"
+
+#go to current workspace and source it
+alias cw="cd $wpath; s"
+
+#list all the aliases
+alias h="tail ~/.bashrc | grep "alias""
+
+#self explanatory
+alias c="catkin_make"
+alias cb="catkin build"
+alias g="cd ~/Documents/Git"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+#view ROS tf tree
+alias vtf="rosrun rqt_tf_tree rqt_tf_tree"
+
+function color_my_prompt {
+   local __user_and_host="\[\033[01;32m\]\u@\h"
+   local __cur_location="\[\033[01;34m\]\w"
+   local __git_branch_color="\[\033[31m\]"
+   #local __git_branch="\ruby -e \"print (%x{git branch 2> /dev/null}.grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\"
+   local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+   local __prompt_tail="\[\033[35m\]$"
+   local __last_color="\[\033[00m\]"
+   export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+}
+color_my_prompt
+
+#go to folder custom_commands with nano and source after closing
+alias ncc="nano ~/bashrc_shortcuts/custom_commands ; source ~/bashrc_shortcuts/.custom_commands"
