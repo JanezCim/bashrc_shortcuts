@@ -38,3 +38,5 @@ color_my_prompt
 
 #go to folder custom_commands with nano and source after closing
 alias ncc="nano ~/bashrc_shortcuts/custom_commands ; source ~/bashrc_shortcuts/.custom_commands"
+
+alias gss="git status"
