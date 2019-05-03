@@ -5,24 +5,37 @@ function whs() {
 }
 
 #define a ROS workspace path that you are working on in order for other commands to work
-export wpath=~/Documents/Git/full_nav_sim
+export wpath=~/Documents/Git/ros2-basics
 
-#source ROS workspace
-alias s="source devel/setup.bash"
+
+
+##################################### ROS stuff ########################################################
+
+#ROS1 specific (uncomment if ur using ROS1, and comment all the ROS2 stuff)
+#alias s="source devel/setup.bash"
+#alias c="catkin_make"
+#alias cb="catkin build"
+
+
+#ROS2 specific (uncomment if ur using ROS2, and comment all the ROS1 stuff)
+alias s="source install/setup.bash && source install/local_setup.bash"
+alias c="colcon build"
+alias cclear="rm -rf build/ install/ log/"
 
 #go to current workspace and source it
-alias cw="cd $wpath; s"
+alias cw="echo Going to ROS workspace and sourcing it...; cd $wpath; s"
 
 #self explanatory
-alias c="catkin_make"
-alias cb="catkin build"
 alias g="cd ~/Documents/Git"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias h="cat ~/.bash_history"
 
 #view ROS tf tree
 alias vtf="rosrun rqt_tf_tree rqt_tf_tree"
+
+#######################################################################################################
 
 function color_my_prompt {
    local __user_and_host="\[\033[01;32m\]\u@\h"
