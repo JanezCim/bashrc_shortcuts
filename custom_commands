@@ -6,7 +6,7 @@ function whs() {
 
 #define a ROS workspace path that you are working on in order for other commands to work
 export wpath=~/Documents/Git/ros2-basics
-
+#export wpath=~/testWS
 
 
 ##################################### ROS stuff ########################################################
@@ -19,6 +19,7 @@ export wpath=~/Documents/Git/ros2-basics
 
 #ROS2 specific (uncomment if ur using ROS2, and comment all the ROS1 stuff)
 alias s="source install/setup.bash && source install/local_setup.bash"
+#alias s="source install/setup.bash"
 alias c="colcon build"
 alias cclear="rm -rf build/ install/ log/"
 
@@ -50,6 +51,6 @@ function color_my_prompt {
 color_my_prompt
 
 #go to folder custom_commands with nano and source after closing
-alias ncc="nano ~/bashrc_shortcuts/custom_commands ; source ~/bashrc_shortcuts/.custom_commands"
+alias ncc="nano ~/bashrc_shortcuts/custom_commands ; echo Closing custom commands and sourcing it...; source ~/bashrc_shortcuts/custom_commands"
 
 alias gss="git status"
