@@ -1,31 +1,62 @@
-#welcome home ssh
-function whs() {
-  scp ~/.bashrc $1:/tmp/.bashrc_temp
-  ssh -t $1 "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
-}
+## Usefull notes
+# - the sourcing of this file must be placed after the ros overlay workspace has been sourced :)
+# - if you change the shell, you have to restart the computer in order for changes to take place
+
+#################################### User changables ##################################################
 
 #define a ROS workspace path that you are working on in order for other commands to work
-export wpath=~/Documents/Git/ros2-basics
-#export wpath=~/testWS
+if [ ! -v wpath ]
+then
+	export wpath=~/debuggingWs/
+fi
+#################################### Admin changables from this point forward #########################
+
+#################################### ROS configuration ################################################
+#if ROS2 is used in BASH shell
+if [ -n "$ROS_VERSION" ] && [ $ROS_VERSION -eq 2 ] && [ "$SHELL" = "/bin/bash" ]
+then
+	#ROS2 is used
+	alias s="source install/setup.bash && source install/local_setup.bash"
+	alias c="colcon build"
+	alias cclear="rm -rf build/ install/ log/"
+fi
+
+#if ROS2 is used in ZHS shell
+if [ -n "$ROS_VERSION" ] && [ $ROS_VERSION -eq 2 ] && [ "$SHELL" = "/usr/bin/zsh" ]
+then
+        #ROS2 is used
+        alias s="source install/setup.bash && source install/local_setup.bash"
+        alias c="colcon build"
+        alias cclear="rm -rf build/ install/ log/"
+fi
 
 
-##################################### ROS stuff ########################################################
+#if ROS1 is used in BASH shell
+if [ -n "$ROS_VERSION" ] && [ $ROS_VERSION -eq 1 ] && [ "$SHELL" = "/bin/bash" ]
+then
+	alias s="source devel/setup.bash"
+	alias c="catkin_make"
+	alias cb="catkin build"
+	alias cclear="rm -rf build/ devel/"
+fi
 
-#ROS1 specific (uncomment if ur using ROS1, and comment all the ROS2 stuff)
-#alias s="source devel/setup.bash"
-#alias c="catkin_make"
-#alias cb="catkin build"
+#if ROS1 is used in ZHS shell
+if [ -n "$ROS_VERSION" ] && [ $ROS_VERSION -eq 1 ] && [ "$SHELL" = "/usr/bin/zsh" ]
+then
+        alias s="source devel/setup.zsh"
+        alias c="catkin_make"
+        alias cb="catkin build"
+        alias cclear="rm -rf build/ devel/"
+fi
 
+#view ROS tf tree
+alias vtf="rosrun rqt_tf_tree rqt_tf_tree"
 
-#ROS2 specific (uncomment if ur using ROS2, and comment all the ROS1 stuff)
-alias s="source install/setup.bash && source install/local_setup.bash"
-#alias s="source install/setup.bash"
-alias c="colcon build"
-alias cclear="rm -rf build/ install/ log/"
-
-#go to current workspace and source it
+#go to current ROS1 or ROS2 workspace and source it
 alias cw="echo Going to ROS workspace and sourcing it...; cd $wpath; s"
 
+#######################################################################################################
+ 
 #self explanatory
 alias g="cd ~/Documents/Git"
 alias ..="cd .."
@@ -33,24 +64,33 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias h="cat ~/.bash_history"
 
-#view ROS tf tree
-alias vtf="rosrun rqt_tf_tree rqt_tf_tree"
+#if the shell version is default, color the prompt and add git status
+if [ -n "$BASH_VERSION" ]
+then
+	function color_my_prompt {
+	   local __user_and_host="\[\033[01;32m\]\u@\h"
+	   local __cur_location="\[\033[01;34m\]\w"
+	   local __git_branch_color="\[\033[31m\]"
+	   #local __git_branch="\ruby -e \"print (%x{git branch 2> /dev/null}.grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\"
+	   local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+	   local __prompt_tail="\[\033[35m\]$"
+	   local __last_color="\[\033[00m\]"
+	   export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+	}
+	color_my_prompt
+fi
 
-#######################################################################################################
-
-function color_my_prompt {
-   local __user_and_host="\[\033[01;32m\]\u@\h"
-   local __cur_location="\[\033[01;34m\]\w"
-   local __git_branch_color="\[\033[31m\]"
-   #local __git_branch="\ruby -e \"print (%x{git branch 2> /dev/null}.grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\"
-   local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
-   local __prompt_tail="\[\033[35m\]$"
-   local __last_color="\[\033[00m\]"
-   export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
-}
-color_my_prompt
 
 #go to folder custom_commands with nano and source after closing
 alias ncc="nano ~/bashrc_shortcuts/custom_commands ; echo Closing custom commands and sourcing it...; source ~/bashrc_shortcuts/custom_commands"
 
 alias gss="git status"
+
+#welcome home ssh
+function whs() {
+  scp ~/.bashrc $1:/tmp/.bashrc_temp
+  ssh -t $1 "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
+}
+
+#TODO quick change of current workspace
+#alias chwpath="echo Temporarily saving current path as workspace path $pwd ; wpath=`pwd` ; source ~/bashrc_shortcuts/custom_commands"
