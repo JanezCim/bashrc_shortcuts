@@ -7,7 +7,7 @@
 #define a ROS workspace path that you are working on in order for other commands to work
 if [ ! -v wpath ]
 then
-	export wpath=~/debuggingWs/
+	export wpath=~/Documents/Git/ELTE/MRNTC/mrntc_ref_ws/
 fi
 #################################### Admin changables from this point forward #########################
 
@@ -34,10 +34,12 @@ fi
 #if ROS1 is used in BASH shell
 if [ -n "$ROS_VERSION" ] && [ $ROS_VERSION -eq 1 ] && [ "$SHELL" = "/bin/bash" ]
 then
-	alias s="source devel/setup.bash"
+	alias s="echo Sourcing ROS workspace from devel; source devel/setup.bash"
+	alias si="echo Sourcing ROS workspace from devel_isolated; source devel_isolated/setup.bash"
+	#alias c="catkin_make -DCMAKE_CXX_STANDARD=14"
 	alias c="catkin_make"
 	alias cb="catkin build"
-	alias cclear="rm -rf build/ devel/"
+	alias cclear="echo Removing build/ and devel/ directories; rm -rf build/ devel/"
 fi
 
 #if ROS1 is used in ZHS shell
@@ -53,12 +55,17 @@ fi
 alias vtf="rosrun rqt_tf_tree rqt_tf_tree"
 
 #go to current ROS1 or ROS2 workspace and source it
-alias cw="echo Going to ROS workspace and sourcing it...; cd $wpath; s"
+alias cw="echo Going to ROS workspace ; cd $wpath"
+
+#ros remote source from current workpace
+alias rr="echo Sourcing ROS remote bash folder; source ../ros_remote.bash"
+
 
 #######################################################################################################
  
 #self explanatory
 alias g="cd ~/Documents/Git"
+alias p="cd ~/Documents/Projects"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
