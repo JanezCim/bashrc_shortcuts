@@ -7,7 +7,7 @@
 #define a ROS workspace path that you are working on in order for other commands to work
 if [ ! -v wpath ]
 then
-	export wpath=~/Documents/Git/ELTE/MRNTC/mrntc_ref_ws/
+	export wpath=~/Documents/Projects/ubiquityrobotics/
 fi
 #################################### Admin changables from this point forward #########################
 
@@ -60,6 +60,7 @@ alias cw="echo Going to ROS workspace ; cd $wpath"
 #ros remote source from current workpace
 alias rr="echo Sourcing ROS remote bash folder; source ../ros_remote.bash"
 
+alias tl="rostopic list"
 
 #######################################################################################################
  
@@ -93,10 +94,10 @@ alias ncc="nano ~/bashrc_shortcuts/custom_commands ; echo Closing custom command
 
 alias gss="git status"
 
-#welcome home ssh
+#welcome home ssh - copies and sources custom commands to ssh server and then logs on
 function whs() {
-  scp ~/.bashrc $1:/tmp/.bashrc_temp
-  ssh -t $1 "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
+  scp ~/bashrc_shortcuts/custom_commands $1:/tmp/custom_commands_temp
+  ssh -t $1 "bash --rcfile /tmp/custom_commands_temp ; rm /tmp/custom_commands_temp"
 }
 
 #TODO quick change of current workspace
