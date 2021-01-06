@@ -62,6 +62,8 @@ alias rr="echo Sourcing ROS remote bash folder; source ../ros_remote.bash"
 
 alias tl="rostopic list"
 
+alias rosdep_all="rosdep install --from-paths src --ignore-src -r -y"
+
 #######################################################################################################
  
 #self explanatory
