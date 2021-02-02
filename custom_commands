@@ -38,6 +38,7 @@ then
 	alias si="echo Sourcing ROS workspace from devel_isolated; source devel_isolated/setup.bash"
 	#alias c="catkin_make -DCMAKE_CXX_STANDARD=14"
 	alias c="catkin_make"
+	alias c2="catkin_make -j2"
 	alias cb="catkin build"
 	alias cclear="echo Removing build/ and devel/ directories; rm -rf build/ devel/"
 fi
