@@ -90,7 +90,6 @@ alias rpush_bash_shortcuts="rsync -avz ~/bashrc_shortcuts/ -e ssh $robot_usernam
 	# on the robot
 
 ##################### multimaster variables by default #############################################
-export HOSTNAME=$(hostname)
 export ROS_HOSTNAME=$(hostname).local
 export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311
 
