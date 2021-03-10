@@ -83,6 +83,11 @@ alias rssh="ssh $robot_username@$robot_hostname.local"
 alias rsftp="gio mount sftp://ubuntu@$robot_hostname.local"
 #print info about the robot
 alias rinfo="echo $robot_username@$robot_hostname"
+#push bashrc shortcuts from this computer to robot
+alias rpush_bash_shortcuts="rsync -avz ~/bashrc_shortcuts/ -e ssh $robot_username@$robot_hostname.local:~/bashrc_shortcuts/"
+	# after pushing that execute 
+	#echo -e "if [ -f $HOME/bashrc_shortcuts/custom_commands ]; then\n\t. $HOME/bashrc_shortcuts/custom_commands\nfi" >> ~/.bashrc; source ~/.bashrc
+	# on the robot
 
 #######################################################################################################
  
