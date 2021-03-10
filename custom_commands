@@ -4,11 +4,20 @@
 
 #################################### User changables ##################################################
 
+if [ ! -v robot_hostname ]
+then
+        export robot_hostname=thor
+	export robot_username=ubuntu
+fi
+
+
 #define a ROS workspace path that you are working on in order for other commands to work
 if [ ! -v wpath ]
 then
 	export wpath=~/Documents/Projects/ubiquityrobotics/
 fi
+
+
 #################################### Admin changables from this point forward #########################
 
 #################################### ROS configuration ################################################
@@ -64,6 +73,16 @@ alias rr="echo Sourcing ROS remote bash folder; source ../ros_remote.bash"
 alias tl="rostopic list"
 
 alias rosdep_all="rosdep install --from-paths src --ignore-src -r -y"
+
+###################### actions on the robot ########################################################
+#set shared master mode on the robot
+alias rs="ROS_MASTER_URI=http://$robot_hostname.local:11311"
+#ssh to the robot
+alias rssh="ssh $robot_username@$robot_hostname.local"
+#mount a sftp session to the robot
+alias rsftp="gio mount sftp://ubuntu@$robot_hostname.local"
+#print info about the robot
+alias rinfo="echo $robot_username@$robot_hostname"
 
 #######################################################################################################
  
