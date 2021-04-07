@@ -80,7 +80,7 @@ alias rs="ROS_MASTER_URI=http://$robot_hostname.local:11311"
 #ssh to the robot
 alias rssh="ssh $robot_username@$robot_hostname.local"
 #mount a sftp session to the robot
-alias rsftp="gio mount sftp://ubuntu@$robot_hostname.local"
+alias rsftp="gio mount sftp://ubuntu@$robot_hostname.local; nautilus sftp://ubuntu@$robot_hostname.local &"
 #print info about the robot
 alias rinfo="echo $robot_username@$robot_hostname"
 #push bashrc shortcuts from this computer to robot
@@ -102,6 +102,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias h="cat ~/.bash_history"
+alias bshrc="sudo nano ~/.bashrc"
 
 #if the shell version is default, color the prompt and add git status
 if [ -n "$BASH_VERSION" ]
