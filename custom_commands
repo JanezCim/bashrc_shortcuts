@@ -6,7 +6,10 @@
 
 if [ ! -v robot_hostname ]
 then
-        export robot_hostname=ubiquityrobotics
+        #export robot_hostname=ubiquityrobotics
+	export robot_hostname=pi-focal
+	#export robot_hostname=breadcrumb
+	#export robot_hostname=ur1
 	export robot_username=ubuntu
 fi
 
@@ -89,6 +92,8 @@ alias rssh="ssh $robot_username@$robot_hostname.local"
 alias rsftp="gio mount sftp://ubuntu@$robot_hostname.local && nautilus sftp://ubuntu@$robot_hostname.local &"
 #print info about the robot
 alias rinfo="echo $robot_username@$robot_hostname"
+#copy ssh password onto robot - requires that ssh key be generated with ssh-keygen beforehand
+alias rcopyssh="ssh-copy-id $robot_username@$robot_hostname.local"
 #push bashrc shortcuts from this computer to robot
 function rpush_bash_shortcuts (){
   #first sync the bash shortcuts onto $robot_username@$robot_hostname.local:~/bashrc_shortcuts/
