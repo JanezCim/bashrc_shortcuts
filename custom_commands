@@ -4,14 +4,18 @@
 
 #################################### User changables ##################################################
 
-if [ ! -v robot_hostname ]
-then
-        #export robot_hostname=ubiquityrobotics
-	export robot_hostname=pi-focal
-	#export robot_hostname=breadcrumb
-	#export robot_hostname=ur1
-	export robot_username=ubuntu
-fi
+#export robot_hostname=ubiquityrobot
+#export robot_hostname=pi-focal
+#export robot_hostname=10.42.0.1
+#export robot_hostname=rudi-focal
+export robot_hostname=pi-focal
+#export robot_hostname=kebileb
+export robot_username=ubuntu
+
+# server hostname and username
+export server_hostname=3.145.133.63
+#export server_hostname=3.21.205.211
+export server_username=ubuntu
 
 
 #define a ROS workspace path that you are working on in order for other commands to work
