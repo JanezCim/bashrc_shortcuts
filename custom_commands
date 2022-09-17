@@ -4,8 +4,14 @@
 
 #################################### User changables ##################################################
 
-export robot_hostname=pi-focal.local
-export robot_username=ubuntu
+
+export robot_hostname=192.168.0.52
+export robot_username=rozi
+
+#export robot_hostname=kebileb.local
+#export robot_hostname=pi-focal.local
+#export robot_username=ubuntu
+#export robot_username=pi
 
 #define a ROS workspace path that you are working on in order for other commands to work
 if [ ! -v wpath ]
@@ -79,6 +85,10 @@ function rosconsole (){
 ###################### actions on the robot ########################################################
 #set shared master mode on the robot
 alias rs="ROS_MASTER_URI=http://$robot_hostname:11311"
+#set shared master into /etc/hosts, sudo pass is needed
+alias rs_hosts="sudo echo '$robot_hostname    $robot_username #Automatically added by rs alias' | sudo tee -a /etc/hosts; echo 'Inserted $robot_hostname    $robot_username into /etc/hosts'"
+# unset shared master from /etc/hosts
+alias rs_hosts_rm="sudo sed -i '/Automatically added by rs alias/d' /etc/hosts"
 #ssh to the robot
 alias rssh="ssh $robot_username@$robot_hostname"
 #mount a sftp session to the robot
