@@ -148,3 +148,12 @@ function rmsshkey() {
 
 #TODO quick change of current workspace
 #alias chwpath="echo Temporarily saving current path as workspace path $pwd ; wpath=`pwd` ; source ~/bashrc_shortcuts/custom_commands"
+
+
+# Install/Update Freetube to latest version
+freetube_latest() {
+  TAG=$(curl -s https://api.github.com/repos/FreeTubeApp/FreeTube/tags | jq -r '.[0].name') &&
+  wget -O freetube.deb "$(curl -s "https://api.github.com/repos/FreeTubeApp/FreeTube/releases/tags/$TAG" | jq -r '.assets[] | select(.name | endswith("amd64.deb")) | .browser_download_url')" &&
+  sudo apt install -y ./freetube.deb
+  rm ./freetube.deb
+}
